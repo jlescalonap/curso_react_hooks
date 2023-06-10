@@ -1,14 +1,11 @@
-import ReactDOM from 'react-dom/client'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import "./index.css";
+import ReactDOM from "react-dom/client";
+import { TodoApp } from "./08-useReducer/TodoApp";
 
-// import { CounterApp } from './01-useState/CounterApp';
-// import { CounterWithCustomHook } from '../src/01-useState/CounterWithCustomHook'
-// import {HooksApp} from './HookApp'
-
-import './index.css'
-import { FormWithCustomHook } from './02-useEffect/FormWithCustomHook';
-
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+// @ts-ignore
+ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-    <FormWithCustomHook />
+  <TodoApp />
   // </React.StrictMode>
-)
+);
