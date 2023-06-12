@@ -1,33 +1,40 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { todoReducer } from "./todoReducer";
 import { TodoList } from "./components/TodoList";
 import { TodoAdd } from "./components/TodoAdd";
 
 const initialState = [
-  {
-    id: new Date().getTime(),
-    description: "Recolectar la piedra del alma",
-    done: false,
-  },
-  {
-    id: new Date().getTime() + 100,
-    description: "Recolectar la piedra de poder",
-    done: false,
-  },
+  // comentario
 ];
 
+const init = () => {
+  // @ts-ignore
+  return JSON.parse(localStorage.getItem("todos")) || [];
+};
+
 export const TodoApp = () => {
-  const [todos, dispatch] = useReducer(todoReducer, initialState);
+  const [todos, dispatch] = useReducer(todoReducer, init);
 
   const handleNewTodo = (todo: any) => {
     const action = {
-      type: '[TODO] Add new TODO',
+      type: "[TODO] Add new TODO",
       payload: todo,
-    }
+    };
     dispatch(action);
-  }
+  };
+
+  const handleDeleteTodo = (id: any) => {
+    dispatch({
+      type: "[TODO] Remove TODO",
+      payload: id,
+    });
+  };
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <>
@@ -35,11 +42,10 @@ export const TodoApp = () => {
         TodoApp: 10 | <small>Pendientes: 2</small>
       </h1>
       <hr />
-
       <div className="row">
         <div className="col-7">
           {/* @ts-ignore */}
-          <TodoList todos={todos} />
+          <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} />
         </div>
         <div className="col-5">
           <h4>Agregar TODO</h4>
