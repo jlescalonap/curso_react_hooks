@@ -1,51 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { useEffect, useReducer } from "react";
-import { todoReducer } from "./todoReducer";
 import { TodoList } from "./components/TodoList";
 import { TodoAdd } from "./components/TodoAdd";
-
-const initialState = [
-  // comentario
-];
-
-const init = () => {
-  // @ts-ignore
-  return JSON.parse(localStorage.getItem("todos")) || [];
-};
+// @ts-ignore
+import { useTodos } from '../hooks'
 
 export const TodoApp = () => {
-  const [todos, dispatch] = useReducer(todoReducer, init);
-
-  const handleNewTodo = (todo: any) => {
-    const action = {
-      type: "[TODO] Add new TODO",
-      payload: todo,
-    };
-    dispatch(action);
-  };
-
-  const handleDeleteTodo = (id: any) => {
-    dispatch({
-      type: "[TODO] Remove TODO",
-      payload: id,
-    });
-  };
-
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+  
+  const { todos, todosCount, pendingTodosCount, handleDeleteTodo, handleToggleTodo, handleNewTodo } = useTodos();
 
   return (
     <>
       <h1>
-        TodoApp: 10 | <small>Pendientes: 2</small>
+        TodoApp: {todosCount} | <small>Pendientes: {pendingTodosCount}</small>
       </h1>
       <hr />
       <div className="row">
         <div className="col-7">
           {/* @ts-ignore */}
-          <TodoList todos={todos} onDeleteTodo={handleDeleteTodo} />
+          <TodoList 
+            todos={todos} 
+            onDeleteTodo={handleDeleteTodo}
+            onToggleTodo={handleToggleTodo} 
+          />
         </div>
         <div className="col-5">
           <h4>Agregar TODO</h4>

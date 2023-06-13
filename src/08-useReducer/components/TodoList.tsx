@@ -2,12 +2,17 @@
 import { TodoItem } from "./TodoItem";
 
 // @ts-ignore
-export const TodoList = ({ todos = [], onDeleteTodo }) => {
+export const TodoList = ({ todos = [], onDeleteTodo, onToggleTodo }) => {
   return (
     <ul className="list-group">
       {todos.map((todo) => (
-        // @ts-ignore
-        <TodoItem key={todo.id} todo={todo} onDeleteTodo={onDeleteTodo} />
+        <TodoItem 
+          // @ts-ignore
+          key={todo.id} 
+          todo={todo} 
+          onDeleteTodo={onDeleteTodo} 
+          onToggleTodo={onToggleTodo} 
+        />
       ))}
     </ul>
   );
