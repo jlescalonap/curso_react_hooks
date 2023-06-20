@@ -1,11 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import "./index.css";
+import React from "react";
 import ReactDOM from "react-dom/client";
-import { TodoApp } from "./08-useReducer/TodoApp";
+import { BrowserRouter } from "react-router-dom";
+
+//@ts-ignore
+import { MainApp } from "./09-useContext/MainApp";
+
+import "./index.css";
 
 // @ts-ignore
 ReactDOM.createRoot(document.getElementById("root")).render(
-  // <React.StrictMode>
-  <TodoApp />
-  // </React.StrictMode>
+  <React.StrictMode>
+    <BrowserRouter>
+      <MainApp />
+    </BrowserRouter>
+  </React.StrictMode>
 );
